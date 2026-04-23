@@ -1,0 +1,13 @@
+import { db } from '../src/db';
+const rows = db.query("SELECT name FROM sqlite_master WHERE type='table' ORDER BY name").all();
+console.log('tables:', rows.map((r: any) => r.name));
+const customerCount = db.query("SELECT COUNT(*) AS c FROM sqlite_master WHERE type='table' AND name='customers'").get();
+console.log('customers table exists:', customerCount.c === 1);
+const migrations = db.query("SELECT id, name, applied_at FROM __migrations ORDER BY id").all();
+console.log('migrations:', migrations);
+const orderColumns = db.query("PRAGMA table_info(orders)").all();
+console.log('orders columns:', orderColumns);
+const customerExists = db.query("SELECT 1 FROM sqlite_master WHERE type='table' AND name='customers' LIMIT 1").get();
+const orderExists = db.query("SELECT 1 FROM sqlite_master WHERE type='table' AND name='orders' LIMIT 1").get();
+console.log('customerExists raw:', customerExists);
+console.log('orderExists raw:', orderExists);

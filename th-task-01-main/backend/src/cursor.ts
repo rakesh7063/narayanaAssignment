@@ -1,6 +1,5 @@
 export type CursorPayload = {
-  rowid: number;
-  order_id: string;
+  id: number;
 };
 
 function parsePayload(raw: unknown): CursorPayload {
@@ -8,18 +7,14 @@ function parsePayload(raw: unknown): CursorPayload {
     throw new Error("Invalid cursor payload");
   }
   const o = raw as Record<string, unknown>;
-  if (!("rowid" in o) || !("order_id" in o)) {
+  if (!("id" in o)) {
     throw new Error("Invalid cursor payload");
   }
-  const rowid = o.rowid;
-  const order_id = o.order_id;
-  if (typeof rowid !== "number" || !Number.isInteger(rowid) || rowid < 1) {
-    throw new Error("Invalid cursor rowid");
+  const id = o.id;
+  if (typeof id !== "number" || !Number.isInteger(id) || id < 1) {
+    throw new Error("Invalid cursor id");
   }
-  if (typeof order_id !== "string") {
-    throw new Error("Invalid cursor order_id");
-  }
-  return { rowid, order_id };
+  return { id };
 }
 
 export function encodeCursor(payload: CursorPayload): string {
@@ -29,6 +24,6 @@ export function encodeCursor(payload: CursorPayload): string {
 
 export function decodeCursor(encoded: string): CursorPayload {
   const buf = Buffer.from(encoded, "base64url");
-  const json = buf.toString("latin1");
+  const json = buf.toString("utf8");
   return parsePayload(JSON.parse(json));
 }

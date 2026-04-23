@@ -9,7 +9,9 @@
     "lint": "eslint ."
   },
   "dependencies": {
-    "elysia": "latest"
+    "@elysiajs/cors": "latest",
+    "elysia": "latest",
+    "zod": "latest"
   },
   "devDependencies": {
     "bun-types": "latest",
