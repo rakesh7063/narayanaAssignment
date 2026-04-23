@@ -126,6 +126,7 @@ bun run db:migrate
 - The frontend development server uses port `3000`
 - The UI uses cursor-based pagination so the orders list grows by appending pages instead of using offset-based queries
 
-## Contact
+## Screenshot
 
-If you need any further clarification on the assignment or the setup, inspect `INSTRUCTIONS.md` and the backend migration logic in `backend/src/migrate.ts`.
+<img width="1908" height="875" alt="image" src="https://github.com/user-attachments/assets/041dd46d-27b7-4018-9e1f-62f2457f5971" />
+
